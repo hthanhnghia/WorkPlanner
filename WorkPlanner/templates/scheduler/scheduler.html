@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link href='{% static "css/bootstrap.min.css" %}' rel="stylesheet">
+        <link href='{% static "css/style.css" %}' rel="stylesheet">
+        <script src='{% static "js/jquery-3.2.0.min.js" %}'></script>
+        <script src='{% static "js/bootstrap.min.js" %}'></script>
+    </head>
+    <body>
+    	<h2 style="text-align:center">WORK PLANNER</h2>
+
+    	<div class="container-fluid">
+  			<div class="row">
+  				<div class="col-sm-12">
+  					<button onclick="location.href='{% url 'add_job' %}';" class="btn btn-primary">
+			            <i class="glyphicon glyphicon-plus icon-white bigger-130"></i>
+			            Add Job
+			        </button>
+			        <p>&nbsp;</p>
+  					<table class="calendar table table-bordered">
+					    <thead>
+					        <tr>
+					            <th>&nbsp;</th>
+					            <th width="14%">Sunday</th>
+					            <th width="14%">Monday</th>
+					            <th width="14%">Tuesday</th>
+					            <th width="14%">Wednesday</th>
+					            <th width="14%">Thursday</th>
+					            <th width="14%">Friday</th>
+					            <th width="14%">Saturday</th>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <tr><td>08:00</td></tr>
+					        <tr><td>08:30</td></tr>
+					        <tr><td>09:00</td></tr>
+					        <tr><td>09:30</td></tr>
+					        <tr><td>10:00</td></tr>   
+					        <tr><td>10:30</td></tr>
+					        <tr><td>11:00</td></tr>
+					        <tr><td>11:30</td></tr>
+					        <tr><td>12:00</td></tr>
+					        <tr><td>12:30</td></tr>
+					        <tr><td>13:00</td></tr>
+					        <tr><td>13:30</td></tr>  
+					        <tr><td>14:00</td></tr>
+					        <tr><td>14:30</td></tr>
+					        <tr><td>15:00</td></tr>
+					        <tr><td>15:30</td></tr>
+					        <tr><td>16:00</td></tr>
+					        <tr><td>16:30</td></tr>
+					        <tr><td>17:00</td></tr>
+					        <tr><td>17:30</td></tr>
+					        <tr><td>18:00</td></tr>
+					    </tbody>
+					</table>
+					<p>&nbsp;</p>
+			    </div>
+		    </div>
+		</div>
+		<script>
+	        $(document).ready(function() {
+	        	var job_array = {{ job_array|safe }};
+
+	        	for (var i = 0; i < 7; i++) {
+	        		for(var j = 8*60; j <= 18*60; j = j + 30)
+	        		{
+	        			row_index = (j-8*60)/30
+	        			if(j in job_array[i]) {
+	        				job_title = job_array[i][j]['title']
+	        				job_location = job_array[i][j]['location']
+	        				job_duration = job_array[i][j]['duration']
+
+	        				row_span = job_duration/30
+	        				j = j + job_duration - 30
+	        				if(job_location != "")
+	        					row_markup = "<td class=' has-events' rowspan='" +row_span+ "'>"+job_title+" ("+job_location+")</td>";
+	        				else
+	        					row_markup = "<td class=' has-events' rowspan='" +row_span+ "'>"+job_title+"</td>";
+	        			}
+	        			else {
+	        				row_markup = "<td class=' no-events' rowspan='1'></td>";
+	        			}
+
+	        			$("table tbody tr").eq(row_index).append(row_markup);
+	        		}
+	        	}
+	        })
+        </script>
+    </body>
+</html>
