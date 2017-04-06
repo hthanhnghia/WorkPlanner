@@ -5,12 +5,12 @@ a simple Django work planner/scheduler. User can track the current planner throu
 Django web framework + Sqlite
 
 # Installation
-pip install virtualenv
-virtualenv workplannerenv
-source workplannerenv/bin/activate
-pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
+* pip install virtualenv
+* virtualenv workplannerenv
+* source workplannerenv/bin/activate
+* pip install -r requirements.txt
+* python manage.py makemigrations
+* python manage.py migrate
 
 # Assumptions:
 * The user's working time is divided in blocks of 30 minutes. If the user add a new job with a duration not divisible by 30, the system will automatically convert the duration to the nearest number which is larger and divisible by 30.
