@@ -1,0 +1,1 @@
+web: gunicorn WorkPlanner.wsgi --log-file -
